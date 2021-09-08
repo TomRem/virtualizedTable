@@ -1,56 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import { FC } from 'react';
 import { Counter } from './features/counter/Counter';
 import './App.css';
+import 'react-virtualized/styles.css';
+import { Column, Table } from 'react-virtualized';
 
-function App() {
+const list = [
+  { name: 'Brian Vaughn', description: 'Software engineer' },
+  { name: 'Jan Kowalski', description: 'Sprzatac' },
+  { name: 'Jacek Nowak', description: 'Manager' },
+  { name: 'Robert Kubiak', description: 'Ceo' },
+];
+
+const App: FC = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+      <Table
+        width={500}
+        height={300}
+        headerHeight={20}
+        rowHeight={30}
+        rowCount={list.length}
+        rowGetter={({ index }) => list[index]}>
+        <Column label="Name" dataKey="name" width={200} />
+        <Column label="Description" dataKey="description" width={300} />
+      </Table>,
+      <Counter />
     </div>
   );
 }
